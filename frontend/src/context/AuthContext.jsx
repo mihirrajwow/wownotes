@@ -54,20 +54,28 @@ export function AuthProvider({ children }) {
         }
     }, []);
 
+    // PDF viewer tabs (/view/*) opened via window.open don't need a socket
+    // connection — they only use the `user` object for the watermark.
+    // Skipping the socket avoids triggering single-device enforcement on the
+    // main tab that is already connected.
+    const isViewerTab = window.location.pathname.startsWith("/view/");
+
     useEffect(() => {
         axios
             .get(`${import.meta.env.VITE_API_URL}/auth/me`)
             .then(({ data }) => {
                 if (data.user) {
                     setUser(data.user);
-                    connectSocket(data.user._id);
+                    if (!isViewerTab) {
+                        connectSocket(data.user._id);
+                    }
                     fetchSubs();
                 }
             })
             .catch(() => {})
             .finally(() => setLoading(false));
         return () => socketRef.current?.disconnect();
-    }, [connectSocket, fetchSubs]);
+    }, [connectSocket, fetchSubs, isViewerTab]);
 
     // Helper: does user have access to a given course+semester?
     // Admins always have full access regardless of subscriptions.
