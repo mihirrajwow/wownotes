@@ -314,7 +314,7 @@ export default function Landing() {
                     <p className={s.loginText}>
                         Sign in to access your notes and resources.
                     </p>
-                    <a href="/api/auth/google" className={s.btn}>
+                    <a href={`${import.meta.env.VITE_API_URL}/auth/google`} className={s.btn}>
                         <svg width="18" height="18" viewBox="0 0 24 24">
                             <path
                                 fill="#4285F4"
