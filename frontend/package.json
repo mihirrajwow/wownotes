@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "vite",
         "dev:staging": "vite --config vite.config.staging.js --mode staging",
-        "build": "vite build",
+        "build": "VITE_API_URL=https://wownotes.onrender.com/api vite build",
         "preview": "vite preview"
     },
     "dependencies": {
