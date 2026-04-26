@@ -28,24 +28,53 @@ app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 // ── Socket.IO single-device enforcement ──────────────────────────────────────
+// Allows multiple tabs from the same browser session while still preventing
+// truly different devices/sessions from being logged in simultaneously.
+// activeConnections: Map<userId, Map<socketId, sessionId>>
 const io = new Server(server, {
     cors: { origin: process.env.CLIENT_URL, credentials: true },
 });
 const activeConnections = new Map();
 
+// Parse the connect.sid cookie value from the handshake headers
+function getSessionIdFromSocket(socket) {
+    const cookieHeader = socket.handshake.headers.cookie || "";
+    const match = cookieHeader.match(/connect\.sid=s%3A([^.]+)/);
+    return match ? match[1] : null;
+}
+
 io.on("connection", (socket) => {
     const userId = socket.handshake.auth.userId;
     if (!userId) return;
-    const existing = activeConnections.get(userId);
-    if (existing && existing !== socket.id) {
-        io.to(existing).emit("force_logout", {
-            reason: "Another device logged into your account.",
-        });
+
+    const incomingSessionId = getSessionIdFromSocket(socket);
+
+    if (!activeConnections.has(userId)) {
+        activeConnections.set(userId, new Map());
     }
-    activeConnections.set(userId, socket.id);
+    const userSockets = activeConnections.get(userId);
+
+    // If there are existing connections from a DIFFERENT session, force them out
+    if (incomingSessionId) {
+        for (const [existingSocketId, existingSessionId] of userSockets) {
+            if (existingSessionId && existingSessionId !== incomingSessionId) {
+                io.to(existingSocketId).emit("force_logout", {
+                    reason: "Another device logged into your account.",
+                });
+                userSockets.delete(existingSocketId);
+            }
+        }
+    }
+
+    // Register this socket
+    userSockets.set(socket.id, incomingSessionId);
+
     socket.on("disconnect", () => {
-        if (activeConnections.get(userId) === socket.id)
-            activeConnections.delete(userId);
+        const sockets = activeConnections.get(userId);
+        if (sockets) {
+            sockets.delete(socket.id);
+            if (sockets.size === 0) activeConnections.delete(userId);
+        }
     });
 });
 

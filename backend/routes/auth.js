@@ -64,9 +64,11 @@ router.post("/logout", (req, res, next) => {
         req.session.destroy(() => {
             res.clearCookie("connect.sid");
             if (userId && activeConnections) {
-                const socketId = activeConnections.get(userId);
-                if (socketId) {
-                    io.to(socketId).emit("logged_out");
+                const userSockets = activeConnections.get(userId);
+                if (userSockets) {
+                    for (const socketId of userSockets.keys()) {
+                        io.to(socketId).emit("logged_out");
+                    }
                     activeConnections.delete(userId);
                 }
             }

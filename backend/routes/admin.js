@@ -1012,9 +1012,11 @@ router.post("/broadcast", async (req, res) => {
                 const matchedIds = new Set(
                     matchedUsers.map((u) => String(u._id)),
                 );
-                for (const [userId, socketId] of activeConnections.entries()) {
+                for (const [userId, userSockets] of activeConnections.entries()) {
                     if (matchedIds.has(userId)) {
-                        io.to(socketId).emit("new_announcement", announcement);
+                        for (const socketId of userSockets.keys()) {
+                            io.to(socketId).emit("new_announcement", announcement);
+                        }
                     }
                 }
             }
@@ -1049,12 +1051,14 @@ router.post("/broadcast", async (req, res) => {
                 notifications.forEach((n) => {
                     idToNotif[String(n.userId)] = n;
                 });
-                for (const [userId, socketId] of activeConnections.entries()) {
+                for (const [userId, userSockets] of activeConnections.entries()) {
                     if (idToNotif[userId]) {
-                        io.to(socketId).emit(
-                            "new_notification",
-                            idToNotif[userId],
-                        );
+                        for (const socketId of userSockets.keys()) {
+                            io.to(socketId).emit(
+                                "new_notification",
+                                idToNotif[userId],
+                            );
+                        }
                     }
                 }
             }
