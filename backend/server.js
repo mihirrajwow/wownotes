@@ -28,36 +28,32 @@ app.set("trust proxy", 1);
 const server = http.createServer(app);
 
 // ── Socket.IO single-device enforcement ──────────────────────────────────────
-// Allows multiple tabs from the same browser session while still preventing
-// truly different devices/sessions from being logged in simultaneously.
-// activeConnections: Map<userId, Map<socketId, sessionId>>
+// Allows multiple tabs from the same browser while still preventing truly
+// different browsers / devices from being logged in simultaneously.
+// The frontend generates a stable browserToken in localStorage and sends it
+// in the socket auth payload. All tabs on the same browser share the same
+// token. A different browser/device will have a different token.
+// activeConnections: Map<userId, Map<socketId, browserToken>>
 const io = new Server(server, {
     cors: { origin: process.env.CLIENT_URL, credentials: true },
 });
 const activeConnections = new Map();
 
-// Parse the connect.sid cookie value from the handshake headers
-function getSessionIdFromSocket(socket) {
-    const cookieHeader = socket.handshake.headers.cookie || "";
-    const match = cookieHeader.match(/connect\.sid=s%3A([^.]+)/);
-    return match ? match[1] : null;
-}
-
 io.on("connection", (socket) => {
     const userId = socket.handshake.auth.userId;
     if (!userId) return;
 
-    const incomingSessionId = getSessionIdFromSocket(socket);
+    const browserToken = socket.handshake.auth.browserToken || null;
 
     if (!activeConnections.has(userId)) {
         activeConnections.set(userId, new Map());
     }
     const userSockets = activeConnections.get(userId);
 
-    // If there are existing connections from a DIFFERENT session, force them out
-    if (incomingSessionId) {
-        for (const [existingSocketId, existingSessionId] of userSockets) {
-            if (existingSessionId && existingSessionId !== incomingSessionId) {
+    // If there are existing connections from a DIFFERENT browser token, force them out
+    if (browserToken) {
+        for (const [existingSocketId, existingToken] of userSockets) {
+            if (existingToken && existingToken !== browserToken) {
                 io.to(existingSocketId).emit("force_logout", {
                     reason: "Another device logged into your account.",
                 });
@@ -67,7 +63,7 @@ io.on("connection", (socket) => {
     }
 
     // Register this socket
-    userSockets.set(socket.id, incomingSessionId);
+    userSockets.set(socket.id, browserToken);
 
     socket.on("disconnect", () => {
         const sockets = activeConnections.get(userId);

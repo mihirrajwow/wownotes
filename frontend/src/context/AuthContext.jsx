@@ -12,6 +12,18 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 const AuthContext = createContext(null);
 
+// Generate a stable per-browser token shared across all tabs via localStorage.
+// Different browsers / devices will have different tokens.
+function getBrowserToken() {
+    const KEY = "wownotes_browser_token";
+    let token = localStorage.getItem(KEY);
+    if (!token) {
+        token = crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        localStorage.setItem(KEY, token);
+    }
+    return token;
+}
+
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,7 +34,7 @@ export function AuthProvider({ children }) {
     const connectSocket = useCallback((userId) => {
         if (socketRef.current) socketRef.current.disconnect();
         const socket = io(import.meta.env.VITE_API_URL?.replace('/api', '') || '', {
-            auth: { userId },
+            auth: { userId, browserToken: getBrowserToken() },
             withCredentials: true,
         });
         socketRef.current = socket;
