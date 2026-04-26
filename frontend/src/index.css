@@ -1,0 +1,98 @@
+:root,
+[data-theme="light"] {
+  --ink: #0f0e0d;
+  --paper: #f5f2ed;
+  --paper-2: #ede9e2;
+  --paper-3: #e4dfd6;
+  --accent: #c8501a;
+  --accent-light: #f0e6df;
+  --muted: #8a8279;
+  --border: #d6d0c7;
+  --white: #faf8f5;
+
+  --note-default: #faf8f5;
+  --note-rose: #fff1f2;
+  --note-amber: #fffbeb;
+  --note-emerald: #f0fdf4;
+  --note-sky: #f0f9ff;
+  --note-violet: #faf5ff;
+  --note-pink: #fdf2f8;
+}
+
+[data-theme="dark"] {
+  --ink: #f0f0f0;
+  --paper: #0d0d0d;
+  --paper-2: #141414;
+  --paper-3: #1a1a1a;
+  --accent: #f5c400;
+  --accent-light: #1f1a00;
+  --muted: #6b6b6b;
+  --border: #2a2a2a;
+  --white: #111111;
+
+  --note-default: #111111;
+  --note-rose: #1a0f0f;
+  --note-amber: #1a1500;
+  --note-emerald: #0a1a0f;
+  --note-sky: #0a1018;
+  --note-violet: #120f1a;
+  --note-pink: #1a0f15;
+}
+
+:root {
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 16px rgba(15,14,13,0.08);
+  --shadow-lg: 0 8px 40px rgba(15,14,13,0.14);
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-up { animation: fadeUp 0.4s ease forwards; }
+.animate-fade-in { animation: fadeIn 0.3s ease forwards; }

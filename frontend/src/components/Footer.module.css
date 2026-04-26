@@ -1,0 +1,197 @@
+/* ── Footer.module.css ───────────────────────────────────────────────────────
+   Full footer (Landing) + SlimFooter (authenticated AppShell pages).
+   Palette mirrors the Landing dark theme: #0d0f12 bg, #ffd23f gold accent.
+   Light-mode falls back gracefully using CSS vars from index.css.
+──────────────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════ FULL FOOTER ═══════ */
+
+.footer {
+  width: 100%;
+  background: #0a0c0f;
+  border-top: 1px solid rgba(255, 210, 63, 0.12);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Main inner grid ───────────────────────────────────────────────────────── */
+.inner {
+  display: flex;
+  gap: 48px;
+  padding: 48px 48px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Brand column ──────────────────────────────────────────────────────────── */
+.brand {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.logoIcon {
+  color: #ffd23f;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.15rem;
+  color: #f5f0e8;
+  letter-spacing: 0.01em;
+}
+
+.tagline {
+  font-size: 0.78rem;
+  color: rgba(200, 195, 180, 0.45);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.emailLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: rgba(255, 210, 63, 0.55);
+  text-decoration: none;
+  transition: color 0.15s;
+  width: fit-content;
+}
+.emailLink:hover { color: #ffd23f; }
+
+.kiit {
+  font-size: 0.69rem;
+  color: rgba(150, 145, 130, 0.35);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Nav grid ──────────────────────────────────────────────────────────────── */
+.navGrid {
+  flex: 1;
+  display: flex;
+  gap: 40px;
+  justify-content: flex-end;
+}
+
+.navCol {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 120px;
+}
+
+.colHead {
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 210, 63, 0.5);
+  margin: 0 0 4px;
+}
+
+.navLink {
+  font-size: 0.8rem;
+  color: rgba(200, 195, 180, 0.45);
+  text-decoration: none;
+  transition: color 0.15s;
+  width: fit-content;
+}
+.navLink:hover { color: rgba(255, 210, 63, 0.85); }
+
+/* ── Bottom bar ────────────────────────────────────────────────────────────── */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.copy {
+  font-size: 0.69rem;
+  color: rgba(150, 145, 130, 0.3);
+  margin: 0;
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bottomLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.69rem;
+  color: rgba(150, 145, 130, 0.35);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.bottomLink:hover { color: rgba(255, 210, 63, 0.65); }
+
+.sep {
+  color: rgba(150, 145, 130, 0.2);
+  font-size: 0.69rem;
+}
+
+/* ═══════════════════════════════════════════════════ SLIM FOOTER ═══════════ */
+
+.slimFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.slimCopy {
+  font-size: 0.68rem;
+  color: var(--muted);
+  opacity: 0.4;
+}
+
+.slimLinks {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.slimLink {
+  font-size: 0.69rem;
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+.slimLink:hover { opacity: 1; }
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .disclaimerBanner { padding: 11px 20px; }
+  .inner { flex-direction: column; gap: 32px; padding: 36px 20px 28px; }
+  .brand { flex: none; }
+  .navGrid { justify-content: flex-start; flex-wrap: wrap; gap: 28px; }
+  .bottom { flex-direction: column; gap: 10px; align-items: flex-start; padding: 14px 20px; }
+}

@@ -1,0 +1,314 @@
+.page { display: flex; flex-direction: column; gap: 24px; }
+.header {}
+.title { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink); }
+.sub { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+
+.grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 24px; }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+/* Left */
+.left { display: flex; flex-direction: column; gap: 14px; }
+
+.dropZone {
+  border: 2px dashed var(--border); border-radius: 16px;
+  padding: 40px 20px; text-align: center; cursor: pointer;
+  transition: border-color .2s, background .2s;
+  position: relative; min-height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white);
+}
+.dropZone:hover  { border-color: var(--accent); background: var(--accent-light); }
+.dragging        { border-color: var(--accent); background: var(--accent-light); }
+.hasFile         { border-style: solid; border-color: var(--accent); background: var(--accent-light); cursor: default; }
+
+.fileInput { display: none; }
+
+.dropPrompt { display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+.uploadIcon { color: var(--muted); }
+.dropTitle  { font-size: .95rem; font-weight: 600; color: var(--ink); }
+.dropSub    { font-size: .78rem; color: var(--muted); }
+
+.filePreview { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.fileIcon  { color: var(--accent); }
+.fileName  { font-size: .88rem; font-weight: 600; color: var(--ink); word-break: break-all; text-align: center; }
+.fileSize  { font-size: .75rem; color: var(--muted); }
+.removeFile { display: flex; align-items: center; gap: 5px; padding: 5px 12px; background: none; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: .78rem; color: var(--muted); cursor: pointer; transition: all .15s; }
+.removeFile:hover { border-color: #dc2626; color: #dc2626; background: #fff5f5; }
+
+.successBox { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.3); border-radius: 10px; color: #15803d; font-size: .85rem; }
+.errorBox   { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.3); border-radius: 10px; color: #dc2626; font-size: .85rem; }
+
+.uploadBtn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px;
+  background: var(--accent); color: #fff; border: none; border-radius: 12px;
+  font-family: var(--font-body); font-size: .9rem; font-weight: 600;
+  cursor: pointer; transition: background .2s, transform .1s;
+}
+.uploadBtn:hover:not(:disabled) { background: #b34516; transform: translateY(-1px); }
+.uploadBtn:disabled { opacity: .5; cursor: not-allowed; }
+.spin { display: block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Right — form */
+.right { display: flex; flex-direction: column; gap: 14px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 22px 20px; }
+
+.formGroup { display: flex; flex-direction: column; gap: 5px; }
+.formRow   { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.label     { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.optional  { text-transform: none; font-weight: 400; letter-spacing: 0; }
+
+.input, .select, .textarea {
+  padding: 9px 12px; background: var(--paper); border: 1px solid var(--border);
+  border-radius: 8px; font-family: var(--font-body); font-size: .875rem;
+  color: var(--ink); outline: none; transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+.input:focus, .select:focus, .textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+.textarea { resize: vertical; line-height: 1.6; }
+.select { cursor: pointer; }
+
+.checkRow { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: .875rem; color: var(--ink); }
+.checkbox { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+
+.denied { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 80px 20px; color: var(--muted); text-align: center; }
+
+/* ── Page-by-page upload hints ────────────────────────────────────────────── */
+.dropHint {
+  font-size: .72rem; color: var(--accent); margin-top: 2px;
+  padding: 5px 10px; background: var(--accent-light); border-radius: 8px;
+  text-align: center; line-height: 1.5;
+}
+
+.pagedBadge {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-left: 8px; padding: 2px 8px;
+  background: linear-gradient(135deg, #c8501a22, #f97316aa);
+  border: 1px solid var(--accent); border-radius: 20px;
+  font-size: .7rem; font-weight: 700; color: var(--accent);
+  letter-spacing: .04em; text-transform: uppercase;
+}
+
+/* ── Live progress bar ────────────────────────────────────────────────────── */
+.progressWrap {
+  display: flex; flex-direction: column; gap: 7px;
+  padding: 12px 16px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+}
+
+.progressHeader {
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.progressLabel {
+  font-size: .78rem; color: var(--ink); font-weight: 500;
+}
+
+.progressPct {
+  font-size: .78rem; color: var(--accent); font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressTrack {
+  width: 100%; height: 7px;
+  background: var(--paper); border-radius: 99px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progressFill {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent) 0%, #f97316 100%);
+  transition: width 0.35s cubic-bezier(.4,0,.2,1);
+  min-width: 4px;
+}
+
+.progressSub {
+  font-size: .7rem; color: var(--muted); line-height: 1.4; margin-top: 2px;
+}
+
+/* ── PYQ Section ─────────────────────────────────────────────────────────── */
+.pyqSection {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1.5px solid var(--accent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+
+.pyqSectionHeader {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.pyqToggles {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.fileName {
+  font-size: .75rem;
+  color: var(--accent);
+  margin-top: .3rem;
+}
+
+/* ── Subject combobox ─────────────────────────────────────────────────────── */
+.subjectLoading {
+  font-size: .72rem;
+  color: var(--muted);
+  font-weight: 400;
+  font-style: italic;
+}
+
+.subjectManual {
+  margin-top: .45rem;
+}
+/* ── PPT Context Panel ───────────────────────────────────────────────────── */
+.pptContextPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--paper-2, #f0ece4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+}
+.pptContextHeader {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--accent);
+    margin-bottom: 2px;
+}
+.pptContextEmpty {
+    font-size: .78rem;
+    color: var(--muted);
+    margin: 0;
+    padding: 4px 0;
+}
+.pptContextHint {
+    font-size: .72rem;
+    color: var(--muted);
+    margin: 4px 0 0;
+    font-style: italic;
+}
+.pptSubjectRow {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--white, #fff);
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+.pptSubjectRow:hover {
+    border-color: var(--accent);
+    background: var(--accent-light, #fff8ed);
+}
+.pptSubjectRowActive {
+    border-color: var(--accent) !important;
+    background: var(--accent-light, #fff8ed) !important;
+}
+.pptSubjectName {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+.pptSubjectMeta {
+    font-size: .72rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.pptSubjectCheck {
+    color: #16a34a;
+    font-weight: 600;
+}
+.pptMismatchWarn {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 8px 10px;
+    background: rgba(245,158,11,.1);
+    border: 1px solid rgba(245,158,11,.3);
+    border-radius: 8px;
+    font-size: .76rem;
+    color: #92400e;
+    line-height: 1.5;
+}
+
+/* ── PPT Student Preview Card ────────────────────────────────────────────── */
+.pptPreviewCard {
+    border: 1.5px dashed var(--accent);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: var(--accent-light, #fff8ed);
+}
+.pptPreviewLabel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+.pptPreviewInner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.pptPreviewTop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.pptPreviewBadge {
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--note-sky, #e0f2fe);
+    color: #0369a1;
+}
+.pptPreviewCount {
+    font-size: .7rem;
+    color: var(--muted);
+    background: var(--paper-2, #f0ece4);
+    border-radius: 10px;
+    padding: 2px 7px;
+    font-weight: 600;
+}
+.pptPreviewSubject {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+}
+.pptPreviewFaculty {
+    font-size: .76rem;
+    color: var(--muted);
+    margin: 0;
+}
+.pptPreviewHint {
+    font-size: .72rem;
+    color: var(--muted);
+    margin: 0;
+}

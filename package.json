@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "grep": "^0.1.0",
+    "resend": "^6.9.4"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0"
+  }
+}

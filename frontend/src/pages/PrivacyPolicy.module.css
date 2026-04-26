@@ -1,0 +1,415 @@
+/* ── PrivacyPolicy.module.css ────────────────────────────────────────────────
+   Full-page privacy policy. Dark editorial aesthetic matching WowNotes.
+   Uses platform CSS vars where inside the app; defines its own dark base
+   so it reads well even without the global theme wrapper.
+──────────────────────────────────────────────────────────────────────────── */
+
+.page {
+  min-height: 100vh;
+  background: #0a0c0f;
+  color: #e8e3d8;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ── Top navbar ────────────────────────────────────────────────────────────── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 56px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: sticky;
+  top: 0;
+  background: rgba(10, 12, 15, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+.navBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navIcon { color: #ffd23f; }
+
+.navBrandText {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.05rem;
+  color: #f5f0e8;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumbHome {
+  font-size: 0.78rem;
+  color: rgba(200, 195, 180, 0.4);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.breadcrumbHome:hover { color: rgba(255, 210, 63, 0.75); }
+
+.breadcrumbSep { color: rgba(150, 145, 130, 0.3); }
+
+.breadcrumbCurrent {
+  font-size: 0.78rem;
+  color: rgba(200, 195, 180, 0.65);
+}
+
+/* ── Two-column layout ─────────────────────────────────────────────────────── */
+.layout {
+  display: flex;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 56px;
+  align-items: flex-start;
+}
+
+/* ── Sticky sidebar ────────────────────────────────────────────────────────── */
+.sidebar {
+  flex: 0 0 200px;
+  position: sticky;
+  top: 72px;
+  padding: 36px 0;
+}
+
+.sidebarInner {
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  padding-left: 20px;
+}
+
+.tocLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 210, 63, 0.45);
+  margin: 0 0 14px;
+}
+
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tocLink {
+  font-size: 0.76rem;
+  color: rgba(200, 195, 180, 0.38);
+  text-decoration: none;
+  padding: 4px 0;
+  line-height: 1.4;
+  transition: color 0.15s;
+  display: block;
+}
+.tocLink:hover { color: rgba(255, 210, 63, 0.8); }
+
+/* ── Main content ──────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 48px 0 80px;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────────── */
+.hero {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 210, 63, 0.55);
+  margin-bottom: 14px;
+}
+
+.heroTitle {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: #f5f0e8;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.heroMeta {
+  font-size: 0.78rem;
+  color: rgba(150, 145, 130, 0.5);
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+.heroMeta strong { color: rgba(200, 195, 180, 0.7); font-weight: 500; }
+
+.heroIntro {
+  font-size: 0.9rem;
+  color: rgba(200, 195, 180, 0.6);
+  line-height: 1.75;
+  margin: 0 0 14px;
+  max-width: 660px;
+}
+
+/* ── Section ───────────────────────────────────────────────────────────────── */
+.section {
+  margin-bottom: 52px;
+  scroll-margin-top: 80px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sectionNumber {
+  font-family: 'DM Mono', 'Fira Code', monospace;
+  font-size: 0.68rem;
+  color: rgba(255, 210, 63, 0.4);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #f0ebe0;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+/* ── Section body ──────────────────────────────────────────────────────────── */
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sub {
+  margin-bottom: 24px;
+}
+
+.subTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(200, 195, 180, 0.65);
+  margin: 0 0 10px;
+  letter-spacing: 0.01em;
+}
+
+.p {
+  font-size: 0.875rem;
+  color: rgba(200, 195, 180, 0.6);
+  line-height: 1.78;
+  margin: 0 0 14px;
+}
+
+.ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.li {
+  font-size: 0.875rem;
+  color: rgba(200, 195, 180, 0.6);
+  line-height: 1.65;
+  padding-left: 18px;
+  position: relative;
+}
+.li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 210, 63, 0.4);
+}
+.li strong { color: rgba(200, 195, 180, 0.85); font-weight: 600; }
+
+.link {
+  color: rgba(255, 210, 63, 0.65);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+.link:hover { color: #ffd23f; }
+
+/* ── Disclaimer callout ────────────────────────────────────────────────────── */
+.disclaimer {
+  display: flex;
+  gap: 0;
+  margin: 20px 0 24px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 210, 63, 0.18);
+  background: rgba(255, 210, 63, 0.04);
+}
+
+.disclaimerBar {
+  width: 3px;
+  background: #ffd23f;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.disclaimerContent {
+  padding: 16px 18px;
+  flex: 1;
+}
+
+.disclaimerHead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+.disclaimerIcon { color: #ffd23f; opacity: 0.8; }
+
+.disclaimerLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 210, 63, 0.7);
+}
+
+.disclaimerText {
+  font-size: 0.845rem;
+  color: rgba(200, 195, 180, 0.65);
+  line-height: 1.72;
+  margin: 0;
+}
+
+/* ── Third-party grid ──────────────────────────────────────────────────────── */
+.thirdPartyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.thirdPartyCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.tpName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(240, 235, 220, 0.85);
+  margin: 0 0 2px;
+}
+
+.tpRole {
+  font-size: 0.69rem;
+  color: rgba(255, 210, 63, 0.45);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.tpDesc {
+  font-size: 0.79rem;
+  color: rgba(200, 195, 180, 0.45);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Contact card ──────────────────────────────────────────────────────────── */
+.contactCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 28px;
+  background: rgba(255, 210, 63, 0.05);
+  border: 1px solid rgba(255, 210, 63, 0.15);
+  border-radius: 14px;
+  margin: 48px 0 0;
+}
+
+.contactIcon {
+  color: #ffd23f;
+  flex-shrink: 0;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.contactTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(240, 235, 220, 0.85);
+  margin: 0 0 5px;
+}
+
+.contactSub {
+  font-size: 0.83rem;
+  color: rgba(200, 195, 180, 0.5);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Page footer ───────────────────────────────────────────────────────────── */
+.pageFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pageFooterCopy {
+  font-size: 0.72rem;
+  color: rgba(150, 145, 130, 0.3);
+  margin: 0;
+}
+
+.pageFooterBack {
+  font-size: 0.78rem;
+  color: rgba(255, 210, 63, 0.45);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.pageFooterBack:hover { color: #ffd23f; }
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; }
+  .layout { flex-direction: column; padding: 0 16px; gap: 0; }
+  .sidebar { display: none; }
+  .main { padding: 32px 0 60px; }
+  .heroTitle { font-size: 1.9rem; }
+  .thirdPartyGrid { grid-template-columns: 1fr; }
+  .pageFooter { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+
+.tocLinkActive {
+    color: var(--accent, #c8501a);
+    font-weight: 600;
+}

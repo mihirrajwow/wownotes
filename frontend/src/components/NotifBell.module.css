@@ -1,0 +1,40 @@
+.bell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+}
+
+.bell:hover {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.hasUnread {
+    color: var(--accent, #ffd23f);
+}
+
+.badge {
+    position: absolute;
+    top: 6px;
+    left: 22px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    border-radius: 99px;
+    padding: 1px 5px;
+    line-height: 1.4;
+    pointer-events: none;
+}

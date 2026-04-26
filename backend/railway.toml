@@ -1,0 +1,5 @@
+[build]
+buildCommand = "npm install && npm install resend"
+
+[deploy]
+startCommand = "npm run start"

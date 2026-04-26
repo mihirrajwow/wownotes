@@ -1,0 +1,48 @@
+.page { display: flex; flex-direction: column; gap: 16px; }
+
+.header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.title { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink); }
+.headerRight { display: flex; align-items: center; gap: 10px; }
+
+.searchWrap { position: relative; display: flex; align-items: center; }
+.searchIcon { position: absolute; left: 11px; color: var(--muted); pointer-events: none; }
+.searchInput { padding: 9px 32px 9px 32px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-body); font-size: .875rem; color: var(--ink); outline: none; width: 200px; transition: border-color .2s, box-shadow .2s; }
+.searchInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+.clearX { position: absolute; right: 9px; background: none; border: none; cursor: pointer; color: var(--muted); display: flex; }
+.clearX:hover { color: var(--ink); }
+
+.newBtn { display: flex; align-items: center; gap: 6px; padding: 9px 16px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .2s, transform .1s; white-space: nowrap; }
+.newBtn:hover { background: #b34516; transform: translateY(-1px); }
+
+/* Filters */
+.filters { display: flex; flex-direction: column; gap: 10px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.filterGroup { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filterLabel { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; min-width: 54px; }
+
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { padding: 4px 11px; background: var(--paper); border: 1px solid var(--border); border-radius: 100px; font-family: var(--font-body); font-size: .78rem; color: var(--muted); cursor: pointer; transition: all .15s; }
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+.pillOn { background: var(--accent-light); border-color: var(--accent); color: var(--accent); font-weight: 500; }
+
+.filterInput { padding: 5px 10px; background: var(--paper); border: 1px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: .8rem; color: var(--ink); outline: none; transition: border-color .2s; width: 130px; }
+.filterInput:focus { border-color: var(--accent); }
+
+/* Content */
+.content { display: flex; flex-direction: column; gap: 4px; }
+.sectionLabel { font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; margin-top: 4px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-bottom: 20px; }
+
+.loader { display: flex; justify-content: center; padding: 60px; }
+.spin { display: block; width: 26px; height: 26px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 60px 20px; color: var(--muted); text-align: center; font-size: .9rem; }
+.emptyBtn { padding: 9px 20px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: .88rem; font-weight: 500; cursor: pointer; }
+
+.forcedOverlay { position: fixed; inset: 0; background: rgba(15,14,13,.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(6px); }
+.forcedCard { background: var(--white); border-radius: 20px; padding: 40px 36px; max-width: 380px; width: 100%; text-align: center; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.forcedCard span { font-size: 2.5rem; }
+.forcedCard h2 { font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); }
+.forcedCard p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.forcedCard button { margin-top: 8px; padding: 11px 28px; background: var(--ink); color: var(--paper); border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: .9rem; font-weight: 500; cursor: pointer; }

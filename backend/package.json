@@ -1,0 +1,36 @@
+{
+    "name": "kiit-notes-backend",
+    "version": "1.0.0",
+    "description": "WowNotes Backend",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js",
+        "dev:staging": "cross-env NODE_ENV=development npx dotenv-cli -e .env.staging -- nodemon server.js",
+        "seed": "node scripts/seedCurriculum.js"
+    },
+    "dependencies": {
+        "cloudinary": "^2.2.0",
+        "connect-mongo": "^5.1.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "express-rate-limit": "^7.1.5",
+        "express-session": "^1.17.3",
+        "grep": "^0.1.0",
+        "helmet": "^7.1.0",
+        "mongoose": "^7.6.3",
+        "multer": "^1.4.5-lts.1",
+        "nodemailer": "^6.9.9",
+        "passport": "^0.6.0",
+        "passport-google-oauth20": "^2.0.0",
+        "razorpay": "^2.9.2",
+        "resend": "^4.x.x",
+        "socket.io": "^4.6.2",
+        "streamifier": "^0.1.1"
+    },
+    "devDependencies": {
+        "cross-env": "^10.1.0",
+        "nodemon": "^3.0.2"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "kiit-notes-frontend",
+    "private": true,
+    "version": "0.1.1",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "dev:staging": "vite --config vite.config.staging.js --mode staging",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@theme-toggles/react": "^4.0.0",
+        "axios": "^1.6.2",
+        "grep": "^0.1.0",
+        "lucide-react": "^0.292.0",
+        "pdfjs-dist": "^3.11.174",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.20.0",
+        "socket.io-client": "^4.6.2"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.2.0",
+        "dotenv-cli": "^11.0.0",
+        "vite": "^5.0.2"
+    }
+}

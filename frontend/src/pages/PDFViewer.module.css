@@ -1,0 +1,344 @@
+/* ── Whole-page shell — completely replaces AppShell for the viewer ─────────── */
+.shell {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #1a1917;
+    overflow: hidden;
+    /* Block text selection everywhere in the viewer */
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────────── */
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    background: #0f0e0d;
+    border-bottom: 1px solid #2a2826;
+    flex-shrink: 0;
+    gap: 16px;
+    z-index: 10;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: #2a2826;
+    border: 1px solid #3a3835;
+    border-radius: 9px;
+    color: #a09890;
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.backBtn:hover {
+    background: #3a3835;
+    color: #f5f2ed;
+}
+
+.docInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+    overflow: hidden;
+}
+.docTitle {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f5f2ed;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.pageCount {
+    font-size: 0.72rem;
+    color: #6b6460;
+}
+
+.zoomBtns {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.zoomBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #2a2826;
+    border: 1px solid #3a3835;
+    border-radius: 7px;
+    color: #a09890;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.zoomBtn:hover {
+    background: #3a3835;
+    color: #f5f2ed;
+}
+.zoomLabel {
+    font-size: 0.75rem;
+    color: #6b6460;
+    min-width: 40px;
+    text-align: center;
+    font-family: monospace;
+}
+
+/* ── Viewer area ─────────────────────────────────────────────────────────────── */
+.viewerArea {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 24px 16px;
+    position: relative;
+}
+
+/* Completely block all interaction with the canvas —
+   right-click, drag, touch-hold are all neutralised */
+.canvasWrap {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+.pdfCanvas {
+    display: block;
+    max-width: 100%;
+    /* pointer-events:none means right-click → context menu is impossible */
+    pointer-events: none;
+    /* -webkit-touch-callout blocks iOS long-press save-image */
+    -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Invisible overlay that sits on top of the canvas — catches any
+   pointer events that somehow slip through and eats them */
+.canvasWrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    cursor: default;
+}
+
+.pageSpinner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 25, 23, 0.5);
+    z-index: 2;
+}
+
+/* ── Loader ──────────────────────────────────────────────────────────────────── */
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    color: #6b6460;
+    font-size: 0.85rem;
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    padding-top: 80px;
+}
+.spin {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #3a3835;
+    border-top-color: #c8501a;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Bottom nav ──────────────────────────────────────────────────────────────── */
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: #0f0e0d;
+    border-top: 1px solid #2a2826;
+    flex-shrink: 0;
+}
+.navBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 18px;
+    background: #2a2826;
+    border: 1px solid #3a3835;
+    border-radius: 9px;
+    color: #a09890;
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.navBtn:hover:not(:disabled) {
+    background: #c8501a;
+    border-color: #c8501a;
+    color: #fff;
+}
+.navBtn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pageJumper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.pageInput {
+    width: 52px;
+    padding: 6px 8px;
+    background: #2a2826;
+    border: 1px solid #3a3835;
+    border-radius: 7px;
+    color: #f5f2ed;
+    font-family: monospace;
+    font-size: 0.85rem;
+    text-align: center;
+    outline: none;
+    /* hide spinner arrows */
+    -moz-appearance: textfield;
+}
+.pageInput::-webkit-inner-spin-button,
+.pageInput::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.pageInput:focus {
+    border-color: #c8501a;
+}
+.pageOf {
+    font-size: 0.82rem;
+    color: #6b6460;
+}
+
+/* ── Error page ──────────────────────────────────────────────────────────────── */
+.errorPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #1a1917;
+    gap: 16px;
+}
+.errorMsg {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    color: #a09890;
+    font-size: 0.95rem;
+}
+
+/* ── Print — hide everything so Ctrl+P produces a blank page ─────────────────── */
+@media print {
+    .shell,
+    body,
+    html {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* ── Violation Warning Toast ─────────────────────────────────────────────────── */
+.violationToast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    width: min(520px, calc(100vw - 32px));
+    padding: 16px 18px;
+    background: #1e1a16;
+    border: 1px solid #c8501a;
+    border-left: 4px solid #c8501a;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(200, 80, 26, 0.15);
+    animation: toastSlideUp 0.25s ease;
+}
+@keyframes toastSlideUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.violationLeft {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+}
+.violationIcon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.violationBody {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.violationTitle {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #f5a623;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+.violationMsg {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.83rem;
+    color: #e8e0d8;
+    margin: 0;
+}
+.violationSub {
+    font-family: var(--font-body, "DM Sans", sans-serif);
+    font-size: 0.74rem;
+    color: #7a7068;
+    margin: 4px 0 0;
+    line-height: 1.5;
+}
+.violationClose {
+    background: none;
+    border: none;
+    color: #6b6460;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 2px 4px;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: color 0.15s;
+    margin-top: 1px;
+}
+.violationClose:hover { color: #f5f2ed; }

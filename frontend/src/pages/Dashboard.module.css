@@ -1,0 +1,42 @@
+.page { display: flex; flex-direction: column; gap: 24px; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; }
+.title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); }
+.sub { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border); }
+
+.subBanner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 14px; border: 1px solid; }
+.subActive { background: rgba(74,222,128,.06); border-color: rgba(74,222,128,.25); }
+.subNone   { background: rgba(248,113,113,.06); border-color: rgba(248,113,113,.2); }
+.subDot    { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px rgba(74,222,128,.8); flex-shrink: 0; }
+.subDotNone{ width: 8px; height: 8px; border-radius: 50%; background: #f87171; flex-shrink: 0; }
+.subTitle  { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.subMeta   { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+
+.actions { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+.actionCard { display: flex; flex-direction: column; gap: 4px; padding: 18px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 14px; cursor: pointer; text-align: left; transition: transform .18s, box-shadow .18s; }
+.actionCard:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.actionCta { background: var(--accent-light); border-color: var(--accent); }
+.actionIcon { font-size: 1.4rem; }
+.actionLabel { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.actionSub { font-size: .74rem; color: var(--muted); }
+
+.section { display: flex; flex-direction: column; gap: 14px; }
+.sectionTitle { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--ink); }
+.loader { display: flex; justify-content: center; padding: 20px; }
+.spin { display: block; width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.empty { font-size: .88rem; color: var(--muted); }
+
+.resourceGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.resourceCard { padding: 14px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: transform .18s, box-shadow .18s; display: flex; flex-direction: column; gap: 4px; }
+.resourceCard:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.resType { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 600; }
+.resTitle { font-size: .88rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.resMeta { font-size: .74rem; color: var(--muted); }
+
+.forcedOverlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(6px); }
+.forcedCard { background: var(--white); border-radius: 20px; padding: 40px 36px; max-width: 380px; width: 100%; text-align: center; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.forcedCard span { font-size: 2.5rem; }
+.forcedCard h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); }
+.forcedCard p { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.forcedCard button { margin-top: 8px; padding: 11px 28px; background: var(--ink); color: var(--paper); border: none; border-radius: var(--radius); font-family: var(--font-body); font-size: .9rem; font-weight: 500; cursor: pointer; }

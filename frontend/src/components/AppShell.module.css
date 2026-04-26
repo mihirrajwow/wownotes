@@ -1,0 +1,147 @@
+.shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px; min-width: 220px;
+  display: flex; flex-direction: column;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  transition: width .25s ease, min-width .25s ease;
+  overflow: hidden;
+}
+.sidebar.collapsed { width: 60px; min-width: 60px; }
+
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  padding: 22px 18px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; flex-shrink: 0;
+}
+.logoIcon { color: var(--accent); flex-shrink: 0; }
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1rem; color: var(--ink);
+  white-space: nowrap; line-height: 1.2;
+}
+
+.nav {
+  flex: 1; padding: 10px 10px;
+  display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border: none; background: none;
+  border-radius: 8px; font-family: var(--font-body);
+  font-size: .875rem; color: var(--muted);
+  cursor: pointer; text-align: left; width: 100%;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.navItem:hover { background: var(--paper); color: var(--ink); }
+.navActive { background: var(--accent-light) !important; color: var(--accent) !important; font-weight: 500; }
+
+/* Bottom */
+.bottom {
+  padding: 10px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.subPill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 8px;
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .04em;
+}
+.subOn  { background: rgba(74,222,128,.08);  color: #15803d; border: 1px solid rgba(74,222,128,.2); }
+.subOff { background: rgba(248,113,113,.07); color: #b91c1c; border: 1px solid rgba(248,113,113,.18); }
+.dotGreen { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 4px rgba(74,222,128,.8); }
+.dotRed   { width: 6px; height: 6px; border-radius: 50%; background: #f87171; }
+
+.userInfo {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 8px;
+  background: var(--paper);
+  overflow: hidden;
+}
+.avatar { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; }
+.userText { overflow: hidden; flex: 1; }
+.userName { font-size: .8rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.userMeta { font-size: .68rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Settings panel */
+.settingsPanel {
+  background: var(--paper-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.settingsHeader {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .72rem; font-weight: 600;
+  color: var(--muted); letter-spacing: .06em; text-transform: uppercase;
+}
+
+.settingsClose {
+  display: flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px;
+  border: none; background: none;
+  color: var(--muted); cursor: pointer; border-radius: 4px;
+  transition: background .15s, color .15s;
+}
+.settingsClose:hover { background: var(--border); color: var(--ink); }
+
+.themeOptions {
+  display: flex; flex-direction: column; gap: 3px;
+}
+
+.themeOption {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: none;
+  font-family: var(--font-body);
+  font-size: .8rem; color: var(--muted);
+  cursor: pointer; text-align: left; width: 100%;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.themeOption:hover { background: var(--white); color: var(--ink); }
+.themeOptionActive {
+  background: var(--accent-light) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  font-weight: 500;
+}
+
+.collapseBtn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 6px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 8px; color: var(--muted);
+  cursor: pointer; transition: background .15s, color .15s;
+}
+.collapseBtn:hover { background: var(--paper); color: var(--ink); }
+
+/* Main */
+.main {
+  flex: 1; overflow-y: auto;
+  padding: 28px 32px 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Named content wrapper grows to push SlimFooter to bottom */
+.content {
+  flex: 1;
+}
