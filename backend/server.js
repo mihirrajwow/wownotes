@@ -22,6 +22,7 @@ const adminRoutes = require("./routes/admin");
 const contactRoutes = require("./routes/contact");
 const curriculumRoutes = require("./routes/curriculum");
 const notificationsRoutes = require("./routes/notifications");
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -161,6 +162,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/curriculum", curriculumRoutes);
 app.use("/api/notifications", notificationsRoutes);
+app.use("/api/ai", aiRoutes);
 
 // ── Public: fetch active plans for Pricing page ───────────────────────────────
 app.get("/api/plans", async (req, res) => {
